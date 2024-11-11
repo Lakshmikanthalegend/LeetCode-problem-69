@@ -1,1 +1,29 @@
 # LeetCode-problem-69
+Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.
+class Solution {
+    public int mySqrt(int x) {
+        // Handle edge case for 0
+        if (x == 0) {
+            return 0; // Return 0 if input is 0
+        }
+        
+        // Initialize search range
+        int left = 1, right = x; 
+        while (left <= right) {
+            // Calculate mid point to avoid overflow
+            int mid = left + (right - left) / 2;
+            
+            // Check if mid is the exact square root
+            if (mid == x / mid) {
+                return mid; // Found exact square root
+            } else if (mid < x / mid) {
+                left = mid + 1; // Move right if mid squared is less than x
+            } else {
+                right = mid - 1; // Move left if mid squared is greater than x
+            }
+        }
+        
+        // Return the largest integer whose square is less than or equal to x
+        return right; 
+    }
+}
